@@ -21,7 +21,7 @@ function CreateCompanyUser() {
 
       await axios.post(
 
-        "http://127.0.0.1:8000/company/users/create",
+        "https://update-platform-api.onrender.com/company/users/create",
 
         {
           first_name: firstName,

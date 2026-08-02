@@ -24,7 +24,7 @@ function CompanyEquipments() {
 
       const response = await axios.get(
 
-        "http://127.0.0.1:8000/company/equipments",
+        "https://update-platform-api.onrender.com/company/equipments",
 
         {
 

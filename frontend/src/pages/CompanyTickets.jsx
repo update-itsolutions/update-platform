@@ -15,7 +15,7 @@ function CompanyTickets() {
     try {
       const token = localStorage.getItem("token")
       const response = await axios.get(
-        "http://127.0.0.1:8000/company/tickets",
+        "https://update-platform-api.onrender.com/company/tickets",
         {
           headers: {
             Authorization: `Bearer ${token}`

@@ -30,7 +30,7 @@ const handleLogin = async () => {
     // LOGIN
     const response = await axios.post(
 
-      "http://127.0.0.1:8000/login",
+      "https://update-platform-api.onrender.com/login",
 
       formData,
 
@@ -52,7 +52,7 @@ const handleLogin = async () => {
     // OBTENER DATOS USUARIO
     const meResponse = await axios.get(
 
-      "http://127.0.0.1:8000/me",
+      "https://update-platform-api.onrender.com/me",
 
       {
         headers: {

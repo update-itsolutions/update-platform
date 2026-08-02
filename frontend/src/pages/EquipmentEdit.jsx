@@ -44,7 +44,7 @@ function EquipmentEdit() {
       const equipmentResponse =
         await axios.get(
 
-          `http://127.0.0.1:8000/equipment/${equipmentId}`,
+          `https://update-platform-api.onrender.com/equipment/${equipmentId}`,
 
           {
             headers: {
@@ -77,7 +77,7 @@ function EquipmentEdit() {
       const branchResponse =
         await axios.get(
 
-          `http://127.0.0.1:8000/branches/company/${companyId}`,
+          `https://update-platform-api.onrender.com/branches/company/${companyId}`,
 
           {
             headers: {
@@ -126,7 +126,7 @@ function EquipmentEdit() {
 
       await axios.patch(
 
-        `http://127.0.0.1:8000/equipment/${equipmentId}`,
+        `https://update-platform-api.onrender.com/equipment/${equipmentId}`,
 
         {
 

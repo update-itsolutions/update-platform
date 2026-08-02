@@ -68,7 +68,7 @@ function Profile() {
 
       const response = await axios.get(
 
-        "http://127.0.0.1:8000/platform/profile",
+        "https://update-platform-api.onrender.com/platform/profile",
 
         {
 
@@ -87,7 +87,7 @@ function Profile() {
     
     const ticketsResponse = await axios.get(
 
-  "http://127.0.0.1:8000/platform/my-tickets",
+  "https://update-platform-api.onrender.com/platform/my-tickets",
 
   {
 

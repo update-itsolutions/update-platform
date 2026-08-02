@@ -65,7 +65,7 @@ function Dashboard() {
       const token = localStorage.getItem("token")
 
       const response = await fetch(
-        "http://127.0.0.1:8000/company/me",
+        "https://update-platform-api.onrender.com/company/me",
         {
           headers: {
             Authorization: `Bearer ${token}`
@@ -100,7 +100,7 @@ function Dashboard() {
       console.log("LLAMANDO STATS...")
  
       const response = await axios.get(
-        "http://127.0.0.1:8000/stats",
+        "https://update-platform-api.onrender.com/stats",
         {
           headers: {
             Authorization: `Bearer ${token}`
@@ -134,7 +134,7 @@ function Dashboard() {
 
     const response = await axios.get(
 
-      "http://127.0.0.1:8000/company/dashboard",
+      "https://update-platform-api.onrender.com/company/dashboard",
 
       {
         headers: {

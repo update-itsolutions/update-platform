@@ -33,7 +33,7 @@ function TicketDetail() {
 
       await axios.patch(
 
-        `http://127.0.0.1:8000/tickets/${ticket.id}/status`,
+        `https://update-platform-api.onrender.com/tickets/${ticket.id}/status`,
 
         {
           status: newStatus
@@ -75,7 +75,7 @@ function TicketDetail() {
 
       await axios.post(
 
-        `http://127.0.0.1:8000/tickets/${ticketId}/comments`,
+        `https://update-platform-api.onrender.com/tickets/${ticketId}/comments`,
 
         {
           comment: newComment
@@ -111,7 +111,7 @@ function TicketDetail() {
 
     await axios.patch(
 
-      `http://127.0.0.1:8000/tickets/${ticketId}/assign`,
+      `https://update-platform-api.onrender.com/tickets/${ticketId}/assign`,
 
       {
 
@@ -154,7 +154,7 @@ function TicketDetail() {
 
       const response = await axios.get(
 
-        `http://127.0.0.1:8000/tickets/${ticketId}`,
+        `https://update-platform-api.onrender.com/tickets/${ticketId}`,
 
         {
           headers: {
@@ -171,7 +171,7 @@ function TicketDetail() {
   ) {
       const usersResponse = await axios.get(
 
-        "http://127.0.0.1:8000/platform/support-users",
+        "https://update-platform-api.onrender.com/platform/support-users",
 
         {
 
@@ -197,7 +197,7 @@ function TicketDetail() {
 
       const commentsResponse = await axios.get(
 
-        `http://127.0.0.1:8000/tickets/${ticketId}/comments`,
+        `https://update-platform-api.onrender.com/tickets/${ticketId}/comments`,
 
         {
           headers: {

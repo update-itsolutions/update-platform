@@ -28,7 +28,7 @@ function PlatformTickets() {
 
       const response = await axios.get(
 
-        "http://127.0.0.1:8000/platform/tickets",
+        "https://update-platform-api.onrender.com/platform/tickets",
 
         {
           headers: {
@@ -43,7 +43,7 @@ function PlatformTickets() {
     
     const usersResponse = await axios.get(
 
-  "http://127.0.0.1:8000/platform/support-users",
+  "https://update-platform-api.onrender.com/platform/support-users",
 
   {
     headers: {

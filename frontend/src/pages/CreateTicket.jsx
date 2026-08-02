@@ -36,7 +36,7 @@ function CreateTicket() {
 
       await axios.post(
 
-        "http://127.0.0.1:8000/tickets",
+        "https://update-platform-api.onrender.com/tickets",
 
         {
 

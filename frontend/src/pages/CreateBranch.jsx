@@ -20,7 +20,7 @@ function CreateBranch() {
 
       await axios.post(
 
-        "http://127.0.0.1:8000/branches/",
+        "https://update-platform-api.onrender.com/branches/",
 
         {
           company_id: parseInt(companyId),

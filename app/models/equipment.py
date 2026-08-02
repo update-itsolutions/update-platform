@@ -54,7 +54,9 @@ class Equipment(Base):
         default=False
     )
 
-    last_seen = Column(DateTime)
+    last_seen = Column(
+        DateTime(timezone=True)
+    )
 
     is_active = Column(
     Boolean,

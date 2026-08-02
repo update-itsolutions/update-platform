@@ -54,7 +54,7 @@ function Platform() {
 
       // STATS
       const statsResponse = await axios.get(
-        "http://127.0.0.1:8000/platform/stats",
+        "https://update-platform-api.onrender.com/platform/stats",
         {
           headers: {
             Authorization: `Bearer ${token}`
@@ -66,7 +66,7 @@ function Platform() {
 
       // COMPANIES
       const companiesResponse = await axios.get(
-        "http://127.0.0.1:8000/platform/companies",
+        "https://update-platform-api.onrender.com/platform/companies",
         {
           headers: {
             Authorization: `Bearer ${token}`

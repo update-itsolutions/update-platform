@@ -11,7 +11,7 @@ function CreatePlatformUser() {
     try {
       const token = localStorage.getItem("token")
       await axios.post(
-        "http://127.0.0.1:8000/platform/users/create",
+        "https://update-platform-api.onrender.com/platform/users/create",
         {
           first_name: firstName,
           last_name: lastName,

@@ -26,7 +26,7 @@ function ManagePlatformUsers() {
 
       const response = await axios.get(
 
-        "http://127.0.0.1:8000/platform/users",
+        "https://update-platform-api.onrender.com/platform/users",
 
         {
           headers: {

@@ -82,7 +82,7 @@ const isSysAdmin =
 
       const response = await axios.get(
 
-        `http://127.0.0.1:8000/equipment/${equipmentId}`,
+        `https://update-platform-api.onrender.com/equipment/${equipmentId}`,
 
         {
           headers: {
@@ -95,7 +95,7 @@ const isSysAdmin =
       setEquipment(response.data)
     
     const historyResponse = await axios.get(
-        `http://127.0.0.1:8000/equipments/${equipmentId}/history`,
+        `https://update-platform-api.onrender.com/equipments/${equipmentId}/history`,
         {
             headers:{
                 Authorization:`Bearer ${token}`
@@ -106,7 +106,7 @@ const isSysAdmin =
     setHistory(historyResponse.data)
 
     const ticketsResponse = await axios.get(
-        `http://127.0.0.1:8000/equipments/${equipmentId}/tickets`,
+        `https://update-platform-api.onrender.com/equipments/${equipmentId}/tickets`,
         {
             headers:{
                 Authorization:`Bearer ${token}`

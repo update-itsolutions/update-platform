@@ -43,7 +43,7 @@ function CreateCompany() {
 
       await axios.post(
 
-        "http://127.0.0.1:8000/platform/companies/create",
+        "https://update-platform-api.onrender.com/platform/companies/create",
 
         formData,
 

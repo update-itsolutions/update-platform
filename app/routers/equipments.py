@@ -1,4 +1,5 @@
-from datetime import datetime, UTC
+from datetime import datetime
+from zoneinfo import ZoneInfo
 
 from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
@@ -515,7 +516,9 @@ def agent_checkin(
     equipment.antivirus_enabled = data.antivirus_enabled
     equipment.firewall_enabled = data.firewall_enabled
 
-    equipment.last_seen = datetime.now()
+    equipment.last_seen = datetime.now(
+        ZoneInfo("America/Argentina/Buenos_Aires")
+    )
 
     db.commit()
 

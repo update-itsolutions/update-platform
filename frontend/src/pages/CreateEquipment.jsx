@@ -26,7 +26,7 @@ function CreateEquipment() {
 
         const response = await axios.get(
 
-          `http://127.0.0.1:8000/branches/company/${companyId}`,
+          `https://update-platform-api.onrender.com/branches/company/${companyId}`,
 
           {
             headers: {
@@ -60,7 +60,7 @@ function CreateEquipment() {
 
 await axios.post(
 
-  "http://127.0.0.1:8000/equipments/",
+  "https://update-platform-api.onrender.com/equipments/",
 
   {
     company_id: parseInt(companyId),

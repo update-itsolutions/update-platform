@@ -18,7 +18,7 @@ function CompanyDetail() {
 
     await axios.patch(
 
-      `http://127.0.0.1:8000/users/${userId}/toggle-status`,
+      `https://update-platform-api.onrender.com/users/${userId}/toggle-status`,
 
       {},
 
@@ -55,7 +55,7 @@ const toggleEquipmentStatus = async (equipmentId) => {
 
     await axios.patch(
 
-      `http://127.0.0.1:8000/equipments/${equipmentId}/toggle-status`,
+      `https://update-platform-api.onrender.com/equipments/${equipmentId}/toggle-status`,
 
       {},
 
@@ -91,7 +91,7 @@ const toggleEquipmentStatus = async (equipmentId) => {
     try {
       const token = localStorage.getItem("token")
       const response = await axios.get(
-        `http://127.0.0.1:8000/platform/company/${companyId}`,
+        `https://update-platform-api.onrender.com/platform/company/${companyId}`,
         {
           headers: {
             Authorization: `Bearer ${token}`

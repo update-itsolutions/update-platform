@@ -22,7 +22,7 @@ function Equipments() {
         }
 
         const response = await axios.get(
-          "http://127.0.0.1:8000/equipments",
+          "https://update-platform-api.onrender.com/equipments",
           {
             headers: {
               Authorization: `Bearer ${token}`

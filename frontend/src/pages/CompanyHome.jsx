@@ -24,7 +24,7 @@ const toggleUserStatus = async (userId) => {
 
     await axios.patch(
 
-      `http://127.0.0.1:8000/users/${userId}/toggle-status`,
+      `https://update-platform-api.onrender.com/users/${userId}/toggle-status`,
 
       {},
 
@@ -68,7 +68,7 @@ useEffect(() => {
     const token = localStorage.getItem("token")
 
     const response = await axios.get(
-      "http://127.0.0.1:8000/company/home/",
+      "https://update-platform-api.onrender.com/company/home/",
       {
         headers: {
           Authorization: `Bearer ${token}`

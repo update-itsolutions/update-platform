@@ -48,7 +48,7 @@ function PlatformUserDetail() {
 
       const userResponse = await axios.get(
 
-        `http://127.0.0.1:8000/platform/users/${userId}`,
+        `https://update-platform-api.onrender.com/platform/users/${userId}`,
 
         {
           headers: {
@@ -84,7 +84,7 @@ function PlatformUserDetail() {
 
       const companiesResponse = await axios.get(
 
-        "http://127.0.0.1:8000/platform/companies/simple",
+        "https://update-platform-api.onrender.com/platform/companies/simple",
 
         {
           headers: {
@@ -147,7 +147,7 @@ const saveAssignments = async () => {
 
     await axios.put(
 
-      `http://127.0.0.1:8000/platform/users/${userId}/companies`,
+      `https://update-platform-api.onrender.com/platform/users/${userId}/companies`,
 
       {
         company_ids: selectedCompanies
@@ -186,7 +186,7 @@ const saveUser = async () => {
 
     await axios.put(
 
-      `http://127.0.0.1:8000/platform/users/${userId}`,
+      `https://update-platform-api.onrender.com/platform/users/${userId}`,
 
       userForm,
 
@@ -238,7 +238,7 @@ const toggleStatus = async () => {
 
     await axios.patch(
 
-      `http://127.0.0.1:8000/platform/users/${userId}/status`,
+      `https://update-platform-api.onrender.com/platform/users/${userId}/status`,
 
       {
 

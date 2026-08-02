@@ -42,7 +42,7 @@ function EditCompany() {
 
       const response = await axios.get(
 
-        `http://127.0.0.1:8000/platform/company/${companyId}`,
+        `https://update-platform-api.onrender.com/platform/company/${companyId}`,
 
         {
           headers: {
@@ -84,7 +84,7 @@ function EditCompany() {
 
       await axios.put(
 
-        `http://127.0.0.1:8000/platform/company/${companyId}`,
+        `https://update-platform-api.onrender.com/platform/company/${companyId}`,
 
         formData,
 

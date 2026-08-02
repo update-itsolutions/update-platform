@@ -26,7 +26,7 @@ function EditUserPassword() {
 
       await axios.patch(
 
-        `http://127.0.0.1:8000/users/${userId}/password`,
+        `https://update-platform-api.onrender.com/users/${userId}/password`,
 
         {
           password
