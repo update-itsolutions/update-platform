@@ -1,5 +1,5 @@
 {
   "asset_tag": "Notebook-Leandro",
-  "server_url": "http://127.0.0.1:8000",
+  "server_url": "https://update-platform-api.onrender.com/",
   "checkin_interval": 60
 }
