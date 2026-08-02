@@ -10,7 +10,7 @@ import os
 import json
 import time
 import subprocess
-from datetime import datetime
+from datetime import datetime, timezone
 
 
 def get_base_path():
@@ -48,7 +48,7 @@ CONFIG = load_config()
 ASSET_TAG = CONFIG["asset_tag"]
 
 API_URL = (
-    f'{CONFIG["server_url"]}/agent/checkin'
+    f'{CONFIG["server_url"]}agent/checkin'
 )
 
 # =========================
