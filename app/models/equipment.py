@@ -55,7 +55,7 @@ class Equipment(Base):
     )
 
     last_seen = Column(
-        DateTime(timezone=True)
+        DateTime(UTC)
     )
 
     is_active = Column(
