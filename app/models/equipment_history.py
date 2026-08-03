@@ -7,6 +7,7 @@ from sqlalchemy import (
 )
 
 from datetime import datetime, UTC
+from zoneinfo import ZoneInfo
 
 from app.database import Base
 
@@ -31,6 +32,8 @@ class EquipmentHistory(Base):
 
     created_at = Column(
         DateTime,
-        default=lambda: datetime.now(UTC)
+        default=lambda: datetime.now(
+                            ZoneInfo("America/Argentina/Buenos_Aires")
+                        )
     )
     

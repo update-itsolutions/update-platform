@@ -517,11 +517,9 @@ def agent_checkin(
     equipment.antivirus_enabled = data.antivirus_enabled
     equipment.firewall_enabled = data.firewall_enabled
 
-    print("UTC NOW:", datetime.now(UTC))
-    print("LOCAL ARG:", datetime.now(
-        ZoneInfo("America/Argentina/Buenos_Aires")
-    ))
-    equipment.last_seen = datetime.now(UTC)
+    equipment.last_seen = datetime.now(
+                            ZoneInfo("America/Argentina/Buenos_Aires")
+                          )
 
     db.commit()
 
