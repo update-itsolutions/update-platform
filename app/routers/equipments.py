@@ -6,6 +6,7 @@ from sqlalchemy.orm import Session
 
 from app.database import SessionLocal
 
+from app.models import equipment
 from app.models.equipment import Equipment
 from app.models.equipment_history import EquipmentHistory
 
@@ -516,12 +517,11 @@ def agent_checkin(
     equipment.antivirus_enabled = data.antivirus_enabled
     equipment.firewall_enabled = data.firewall_enabled
 
-    equipment.last_seen = datetime.now()
-
-    print(
-        "HORA GUARDADA:",
-        equipment.last_seen
-    )
+    print("UTC NOW:", datetime.now(UTC))
+    print("LOCAL ARG:", datetime.now(
+        ZoneInfo("America/Argentina/Buenos_Aires")
+    ))
+    equipment.last_seen = datetime.now(UTC)
 
     db.commit()
 
