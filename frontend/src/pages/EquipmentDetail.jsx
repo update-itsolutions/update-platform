@@ -432,9 +432,11 @@ const isSysAdmin =
                 <span className="font-semibold">
                   Última conexión:
                 </span>{" "}
-<pre>
-{JSON.stringify(equipment.last_seen, null, 2)}
-</pre>
+                  {equipment.last_seen
+                    ? new Date(
+                        equipment.last_seen
+                      ).toLocaleString()
+                    : "Nunca conectado"}
                 </div>
 
             </div>

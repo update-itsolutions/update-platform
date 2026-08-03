@@ -518,6 +518,11 @@ def agent_checkin(
 
     equipment.last_seen = datetime.now()
 
+    print(
+        "HORA GUARDADA:",
+        equipment.last_seen
+    )
+
     db.commit()
 
     return {
