@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import datetime, UTC
 from zoneinfo import ZoneInfo
 
 from fastapi import APIRouter, Depends
