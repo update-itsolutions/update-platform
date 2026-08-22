@@ -432,11 +432,12 @@ const isSysAdmin =
                 <span className="font-semibold">
                   Última conexión:
                 </span>{" "}
-                  {equipment.last_seen
-                    ? new Date(
-                        equipment.last_seen
-                      ).toLocaleString()
-                    : "Nunca conectado"}
+              { equipment.last_seen
+                  ? new Date(equipment.last_seen).toLocaleString(
+                      "es-AR",{ hour12: false }
+                    )
+                  : "Nunca conectado"
+              }
                 </div>
 
             </div>
@@ -653,11 +654,12 @@ const isSysAdmin =
 
       <span className="text-gray-600">
 
-        {equipment.last_seen
-          ? new Date(
-              equipment.last_seen
-            ).toLocaleString()
-          : "Nunca conectado"}
+      { equipment.last_seen
+          ? new Date(equipment.last_seen).toLocaleString(
+              "es-AR",{ hour12: false }
+            )
+          : "Nunca conectado"
+      }
 
       </span>
 
@@ -689,7 +691,9 @@ const isSysAdmin =
 
       <p className="text-sm text-gray-500">
         {new Date(item.created_at)
-          .toLocaleString()}
+          .toLocaleString(
+              "es-AR",{ hour12: false }
+          )}
       </p>
 
     </div>
@@ -859,7 +863,7 @@ const isSysAdmin =
             <p>
               Fecha: {
                 new Date(ticket.created_at)
-                .toLocaleString()
+                .toLocaleString("es-AR", { hour12: false })
               }
             </p>
 

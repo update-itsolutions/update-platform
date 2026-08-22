@@ -258,7 +258,7 @@ function CompanyTickets() {
         {new Date(ticket.updated_at).toLocaleDateString()}
       </div>
       <div className="text-gray-500">
-        {new Date(ticket.updated_at).toLocaleTimeString()}
+        {new Date(ticket.updated_at).toLocaleTimeString("es-AR", { hour12: false })}
       </div>
     </>
   ) : (

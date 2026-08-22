@@ -499,8 +499,8 @@ function TicketDetail() {
 
                   new Date(
                     ticket.created_at
-                  ).toLocaleString()
-
+                  ).toLocaleString("es-AR",{ hour12: false })
+                  
                 }
 
               </div>
@@ -513,7 +513,7 @@ function TicketDetail() {
                   ticket.updated_at
                     ? new Date(
                         ticket.updated_at
-                      ).toLocaleString()
+                      ).toLocaleString("es-AR", { hour12: false })
                     : "-"
                 }
 
@@ -621,7 +621,7 @@ function TicketDetail() {
 
               new Date(
                 comment.created_at
-              ).toLocaleString()
+              ).toLocaleString("es-AR", { hour12: false })
 
             }
 
