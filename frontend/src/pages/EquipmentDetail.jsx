@@ -867,6 +867,13 @@ const isSysAdmin =
               }
             </p>
 
+            <p>
+              Última actualización: {
+                new Date(ticket.updated_at)
+                .toLocaleString("es-AR", { hour12: false })
+              }
+            </p>
+
           </div>
 
         </div>
