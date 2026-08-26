@@ -1,9 +1,41 @@
 import { useNavigate } from "react-router-dom"
+import { useEffect, useState } from "react"
 import { Bell, AlertTriangle, LogOut } from "lucide-react"
 
 function Navbar() {
 
   const navigate = useNavigate()
+
+  const [notificationCount, setNotificationCount] = useState(0)
+  
+  useEffect(() => {
+
+  const loadCount = async () => {
+
+    try {
+
+      const response = await fetch(
+        "https://update-platform-api.onrender.com/notifications/unread-count"
+      )
+
+      const data = await response.json()
+
+      setNotificationCount(data.count)
+
+    } catch (error) {
+
+      console.error(
+        "Error cargando notificaciones",
+        error
+      )
+
+    }
+
+  }
+
+  loadCount()
+
+}, [])
 
   const user = {
     full_name: localStorage.getItem("full_name"),
@@ -73,7 +105,7 @@ function Navbar() {
             <Bell size={20} />
 
             <span className="absolute -top-2 -right-2 bg-red-500 text-white text-[10px] font-bold rounded-full px-2 py-[2px] min-w-[20px] text-center">
-              0
+              {notificationCount}
             </span>
 
           </button>
