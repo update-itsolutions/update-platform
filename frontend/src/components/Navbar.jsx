@@ -1,4 +1,5 @@
 import { useNavigate } from "react-router-dom"
+import { Bell, AlertTriangle, LogOut } from "lucide-react"
 
 function Navbar() {
 
@@ -27,7 +28,7 @@ function Navbar() {
 
       <div className="max-w-7xl mx-auto px-6 py-5 flex justify-between items-center">
 
-        {/* LEFT */}
+        {/* IZQUIERDA */}
 
         <div className="flex items-center gap-5">
 
@@ -59,21 +60,47 @@ function Navbar() {
 
         </div>
 
-        {/* RIGHT */}
+        {/* DERECHA */}
 
-        <div className="flex items-center">
+        <div className="flex items-center gap-4">
+
+          {/* NOTIFICACIONES */}
+
+          <button
+            className="relative bg-[#145052] hover:bg-[#1b6668] border border-[#1d6b6d] w-12 h-12 rounded-xl flex items-center justify-center transition"
+          >
+
+            <Bell size={20} />
+
+            <span className="absolute -top-2 -right-2 bg-red-500 text-white text-[10px] font-bold rounded-full px-2 py-[2px] min-w-[20px] text-center">
+              0
+            </span>
+
+          </button>
+
+          {/* ALERTAS */}
+
+          <button
+            className="relative bg-[#145052] hover:bg-[#1b6668] border border-[#1d6b6d] w-12 h-12 rounded-xl flex items-center justify-center transition"
+          >
+
+            <AlertTriangle size={20} />
+
+            <span className="absolute -top-2 -right-2 bg-yellow-500 text-black text-[10px] font-bold rounded-full px-2 py-[2px] min-w-[20px] text-center">
+              0
+            </span>
+
+          </button>
+
+          {/* USUARIO */}
 
           <div className="bg-[#145052] border border-[#1d6b6d] rounded-2xl px-4 py-2 flex items-center gap-3 shadow-sm">
-
-            {/* ICON */}
 
             <div className="w-11 h-11 bg-sky-300 rounded-xl flex items-center justify-center text-white font-bold text-xl">
 
               {user.full_name?.charAt(0)}
 
             </div>
-
-            {/* INFO */}
 
             <div>
 
@@ -101,8 +128,6 @@ function Navbar() {
 
             </div>
 
-            {/* LOGOUT */}
-
             <button
 
               onClick={logout}
@@ -111,7 +136,7 @@ function Navbar() {
 
             >
 
-              ➜
+              <LogOut size={18} />
 
             </button>
 

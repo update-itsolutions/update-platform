@@ -18,6 +18,7 @@ from app.routers import company
 from app.routers import tickets
 from app.routers import support_assignment
 from app.routers import platform_users
+from app.routers import notifications
 
 from app.routers.branches import router as branches_router
 
@@ -38,7 +39,10 @@ app.include_router(company_home.router)
 app.include_router(tickets.router)
 app.include_router(support_assignment.router)
 app.include_router(platform_users.router)
-
+app.include_router(
+    notifications.router,
+    tags=["Notifications"]
+)
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[
