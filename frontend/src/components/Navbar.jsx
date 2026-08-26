@@ -153,15 +153,21 @@ function Navbar() {
   </button>
 {showNotifications && (
 
-  <div className="absolute right-0 mt-3 w-96 bg-white rounded-2xl shadow-2xl z-50 overflow-hidden">
+  <div className="absolute right-16 top-6 w-71 bg-white rounded-2xl shadow-2xl z-50 overflow-hidden">
 
-    <div className="bg-[#0F3D3E] text-white px-4 py-3 font-bold">
+<div className="bg-[#0F3D3E] text-white px-2 py-1 flex justify-between items-center">
 
-      Notificaciones
+  <span className="text-xs font-bold">
+    Notificaciones
+  </span>
 
-    </div>
+  <span className="text-xs bg-white/5 px-2 py-1 rounded-lg font-bold">
+    {notificationCount}
+  </span>
 
-    <div className="max-h-96 overflow-y-auto">
+</div>
+
+    <div className="max-h-64 overflow-y-auto">
 
       {notifications.length === 0 ? (
 
@@ -179,23 +185,30 @@ function Navbar() {
 
             key={item.id}
 
-            className="border-b px-4 py-3 hover:bg-gray-50"
+            className="
+            border-b
+            px-4
+            py-3
+            hover:bg-gray-50
+            cursor-pointer
+            transition
+            "
 
           >
 
-            <div className="font-semibold text-sm text-gray-800">
+            <div className="font-semibold text-sm text-[#0F3D3E]">
 
               {item.title}
 
             </div>
 
-            <div className="text-sm text-gray-600 mt-1">
+            <div className="text-sm text-gray-800 mt-1">
 
               {item.message}
 
             </div>
 
-            <div className="text-xs text-gray-400 mt-2">
+            <div className="text-xs text-gray-400 mt-1">
 
               {
                 new Date(
@@ -224,7 +237,7 @@ function Navbar() {
         navigate("/notifications")
       }
 
-      className="w-full py-3 bg-gray-100 hover:bg-gray-200 text-sm font-semibold"
+      className="w-full py-3 bg-gray-400 hover:bg-gray-500 text-sm font-semibold"
 
     >
 

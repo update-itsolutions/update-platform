@@ -45,3 +45,9 @@ class Notification(Base):
         DateTime(timezone=True),
         default=lambda: datetime.now(UTC)
     )
+
+    ticket_id = Column(
+        Integer,
+        nullable=True
+    )
+    
