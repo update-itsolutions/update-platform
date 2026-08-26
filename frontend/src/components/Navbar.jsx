@@ -7,6 +7,12 @@ function Navbar() {
   const navigate = useNavigate()
 
   const [notificationCount, setNotificationCount] = useState(0)
+
+  const [notifications, setNotifications] =
+    useState([])
+
+  const [showNotifications, setShowNotifications] =
+    useState(false)
   
   useEffect(() => {
 
@@ -34,8 +40,32 @@ function Navbar() {
   }
 
   loadCount()
+  loadNotifications()
 
 }, [])
+
+  const loadNotifications = async () => {
+
+    try {
+
+      const response = await fetch(
+        "https://update-platform-api.onrender.com/notifications"
+      )
+
+      const data = await response.json()
+
+      setNotifications(data)
+
+    } catch (error) {
+
+      console.error(
+        "Error cargando notificaciones",
+        error
+    )
+
+    }
+
+  }
 
   const user = {
     full_name: localStorage.getItem("full_name"),
@@ -98,18 +128,113 @@ function Navbar() {
 
           {/* NOTIFICACIONES */}
 
-          <button
-            className="relative bg-[#145052] hover:bg-[#1b6668] border border-[#1d6b6d] w-12 h-12 rounded-xl flex items-center justify-center transition"
+
+
+  <button
+
+    onClick={() =>
+      setShowNotifications(
+        !showNotifications
+      )
+    }
+
+    className="relative bg-[#145052] hover:bg-[#1b6668] border border-[#1d6b6d] w-12 h-12 rounded-xl flex items-center justify-center transition"
+
+  >
+
+    🔔
+
+    <span className="absolute -top-2 -right-2 bg-red-500 text-white text-[10px] font-bold rounded-full px-2 py-[2px] min-w-[20px] text-center">
+
+      {notificationCount}
+
+    </span>
+
+  </button>
+{showNotifications && (
+
+  <div className="absolute right-0 mt-3 w-96 bg-white rounded-2xl shadow-2xl z-50 overflow-hidden">
+
+    <div className="bg-[#0F3D3E] text-white px-4 py-3 font-bold">
+
+      Notificaciones
+
+    </div>
+
+    <div className="max-h-96 overflow-y-auto">
+
+      {notifications.length === 0 ? (
+
+        <div className="p-4 text-gray-500 text-sm">
+
+          No hay notificaciones
+
+        </div>
+
+      ) : (
+
+        notifications.map((item) => (
+
+          <div
+
+            key={item.id}
+
+            className="border-b px-4 py-3 hover:bg-gray-50"
+
           >
 
-            <Bell size={20} />
+            <div className="font-semibold text-sm text-gray-800">
 
-            <span className="absolute -top-2 -right-2 bg-red-500 text-white text-[10px] font-bold rounded-full px-2 py-[2px] min-w-[20px] text-center">
-              {notificationCount}
-            </span>
+              {item.title}
 
-          </button>
+            </div>
 
+            <div className="text-sm text-gray-600 mt-1">
+
+              {item.message}
+
+            </div>
+
+            <div className="text-xs text-gray-400 mt-2">
+
+              {
+                new Date(
+                  item.created_at
+                ).toLocaleString(
+                  "es-AR",
+                  {
+                    hour12: false
+                  }
+                )
+              }
+
+            </div>
+
+          </div>
+
+        ))
+
+      )}
+
+    </div>
+
+    <button
+
+      onClick={() =>
+        navigate("/notifications")
+      }
+
+      className="w-full py-3 bg-gray-100 hover:bg-gray-200 text-sm font-semibold"
+
+    >
+
+      Ver todas →
+
+    </button>
+
+  </div>
+
+)}
           {/* ALERTAS */}
 
           <button
