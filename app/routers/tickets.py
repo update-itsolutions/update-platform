@@ -4,11 +4,13 @@ from sqlalchemy import case
 
 from app.database import SessionLocal
 
+from app.models import notification
 from app.models.ticket import Ticket
 from app.models.ticket_comment import TicketComment
 
 from app.models.equipment import Equipment
 from app.models.equipment_history import EquipmentHistory
+from app.models.notification import Notification
 
 from app.models.user import User
 from app.schemas import ticket
@@ -90,6 +92,23 @@ def create_ticket(
     db.commit()
 
     db.refresh(new_ticket)
+
+    notification = Notification(
+
+        title="Nuevo Ticket",
+
+        message=(
+            f"Ticket #{new_ticket.id} creado por "
+            f"{current_user.full_name}"
+        ),
+
+        type="TICKET_CREATED"
+
+    )
+
+    db.add(notification)
+
+    db.commit()
 
     history = EquipmentHistory(
 
