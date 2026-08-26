@@ -138,6 +138,8 @@ const isSysAdmin =
 
   return (
 
+    console.log (tickets),
+
     <>
       <Navbar />
 

@@ -32,8 +32,6 @@ class EquipmentHistory(Base):
 
     created_at = Column(
         DateTime,
-        default=lambda: datetime.now(
-                            ZoneInfo("America/Argentina/Buenos_Aires")
-                        )
+        default=lambda: datetime.now(UTC)
     )
     

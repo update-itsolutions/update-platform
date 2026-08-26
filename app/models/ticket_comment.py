@@ -12,6 +12,8 @@ from sqlalchemy.orm import relationship
 
 from app.database import Base
 
+from datetime import datetime, UTC
+
 
 class TicketComment(Base):
 
@@ -36,7 +38,7 @@ class TicketComment(Base):
     comment = Column(String)
 
     created_at = Column(
-        DateTime,
+        DateTime(timezone=True),
         server_default=func.now()
     )
 

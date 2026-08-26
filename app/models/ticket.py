@@ -9,7 +9,7 @@ from sqlalchemy import (
 
 from sqlalchemy.orm import relationship
 
-from datetime import datetime
+from datetime import datetime, UTC
 
 from app.database import Base
 
@@ -39,12 +39,12 @@ class Ticket(Base):
     )
 
     created_at = Column(
-        DateTime,
-        default=datetime.now
+        DateTime(timezone=True),
+        default=lambda: datetime.now(UTC)
     )
 
     closed_at = Column(
-        DateTime,
+        DateTime(timezone=True),
         nullable=True
     )
 
@@ -70,8 +70,8 @@ class Ticket(Base):
     )
 
     updated_at = Column(
-        DateTime,
-        default=datetime.now
+        DateTime(timezone=True),
+        default=lambda: datetime.now(UTC)
     )
 
     updated_by = Column(

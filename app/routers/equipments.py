@@ -517,9 +517,7 @@ def agent_checkin(
     equipment.antivirus_enabled = data.antivirus_enabled
     equipment.firewall_enabled = data.firewall_enabled
 
-    equipment.last_seen = datetime.now(
-                            ZoneInfo("America/Argentina/Buenos_Aires")
-                          )
+    equipment.last_seen = datetime.now(UTC)
 
     db.commit()
 
@@ -644,7 +642,7 @@ def heartbeat(
         existing_equipment.ip_address = equipment.ip_address
         existing_equipment.logged_user = equipment.logged_user
         existing_equipment.windows_version = equipment.windows_version
-        existing_equipment.last_seen = datetime.now()
+        existing_equipment.last_seen = datetime.now(UTC)
         existing_equipment.asset_tag = equipment.asset_tag
         existing_equipment.notes = equipment.notes
         db.commit()
@@ -658,7 +656,7 @@ def heartbeat(
         operating_system=equipment.operating_system,
         company_id=current_user.company_id,
         is_online=True,
-        last_seen=datetime.now(),
+        last_seen=datetime.now(UTC),
         cpu=equipment.cpu,
         ram=equipment.ram,
         disk_total=equipment.disk_total,

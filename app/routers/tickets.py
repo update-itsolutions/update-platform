@@ -18,6 +18,7 @@ from app.schemas.ticket_comment import (
 )
 
 from datetime import datetime, UTC
+from zoneinfo import ZoneInfo
 
 from app.auth.roles import sysadmin_required
 
@@ -152,7 +153,7 @@ def get_ticket_detail(
 
         "priority": ticket.priority,
 
-        "created_at": ticket.created_at,
+        "created_at": ticket.created_at.isoformat() if ticket.created_at else None,
 
         "created_by_name": (
 
@@ -202,7 +203,7 @@ def get_ticket_detail(
 
         ),
 
-        "updated_at": ticket.updated_at,
+        "updated_at": ticket.updated_at.isoformat() if ticket.updated_at else None,
 
         "updated_by_name": (
             ticket.updater.full_name
@@ -260,7 +261,7 @@ def update_ticket_status(
     }
 
     ticket.status = data.status
-    ticket.updated_at = datetime.now()
+    ticket.updated_at = datetime.now(UTC)
     ticket.updated_by = current_user.id
 
     db.commit()
@@ -322,10 +323,8 @@ def create_comment(
         Ticket.id == ticket_id
     ).first()
 
-    ticket.updated_at = datetime.now()
+    ticket.updated_at = datetime.now(UTC)
     ticket.updated_by = current_user.id
-
-    print ("UPATED_AT:", ticket.updated_at)
 
     db.commit()
 
@@ -377,7 +376,7 @@ def get_comments(
 
             "comment": item.comment,
 
-            "created_at": item.created_at,
+            "created_at": item.created_at.isoformat() if item.created_at else None,
 
             "user_name": (
                 item.user.full_name
@@ -419,7 +418,7 @@ def get_all_tickets(
 
             "priority": ticket.priority,
 
-            "created_at": ticket.created_at,
+            "created_at": ticket.created_at.isoformat() if ticket.created_at else None,
 
             "created_by_name": (
                 ticket.creator.full_name
@@ -447,7 +446,7 @@ def get_all_tickets(
                 else None
             ),
 
-            "updated_at": ticket.updated_at,
+            "updated_at": ticket.updated_at.isoformat() if ticket.updated_at else None,
 
             "updated_by_name": (
                 ticket.updater.full_name
@@ -497,7 +496,7 @@ def get_company_tickets(
 
             "status": ticket.status,
 
-            "created_at": ticket.created_at,
+            "created_at": ticket.created_at.isoformat() if ticket.created_at else None,
 
             "equipment_name": (
                 ticket.equipment.hostname
@@ -546,7 +545,7 @@ def assign_ticket(
         )
 
     ticket.assigned_to = payload["user_id"]
-    ticket.updated_at = datetime.now()
+    ticket.updated_at = datetime.now(UTC)
     ticket.updated_by = current_user.id
 
     db.commit()
@@ -612,7 +611,7 @@ def get_company_tickets(
 
             "priority": ticket.priority,
 
-            "created_at": ticket.created_at,
+            "created_at": ticket.created_at.isoformat() if ticket.created_at else None,
 
             "created_by_name": (
                 ticket.creator.full_name
@@ -641,7 +640,7 @@ def get_company_tickets(
 
             "assigned_to": ticket.assigned_to,
 
-            "updated_at": ticket.updated_at,
+            "updated_at": ticket.updated_at.isoformat() if ticket.updated_at else None,
 
             "updated_by_name": (
                 ticket.updater.full_name
@@ -747,7 +746,9 @@ def get_equipment_tickets(
 
             "status": ticket.status,
 
-            "created_at": ticket.created_at,
+            "created_at": ticket.created_at.isoformat() if ticket.created_at else None,
+
+            "updated_at": ticket.updated_at.isoformat() if ticket.updated_at else None,
 
             "created_by_name": (
                 ticket.creator.full_name

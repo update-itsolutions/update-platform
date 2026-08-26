@@ -40,7 +40,7 @@ class AuditLog(Base):
 
     created_at = Column(
         DateTime,
-        default=datetime.now
+        default=datetime.now(UTC)
     )
 
     equipment = relationship(

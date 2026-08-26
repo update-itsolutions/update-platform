@@ -10,7 +10,7 @@ import os
 import json
 import time
 import subprocess
-from datetime import datetime, timezone
+from datetime import datetime, timezone, UTC
 
 
 def get_base_path():
@@ -342,7 +342,7 @@ def get_uptime():
         psutil.boot_time()
     )
 
-    uptime = datetime.now() - boot_time
+    uptime = datetime.now(UTC) - boot_time
 
     days = uptime.days
 
