@@ -7,6 +7,7 @@ from app.models.equipment import Equipment
 from app.models.company import Company
 from app.models.branch import Branch
 from app.models.support_company_assignment import SupportCompanyAssignment
+from app.models.notification import Notification
 
 from app.routers import equipments
 from app.routers import platform
