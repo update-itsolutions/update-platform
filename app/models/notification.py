@@ -3,7 +3,8 @@ from sqlalchemy import (
     Integer,
     String,
     Boolean,
-    DateTime
+    DateTime,
+    ForeignKey
 )
 
 from datetime import datetime, UTC
@@ -48,6 +49,15 @@ class Notification(Base):
 
     ticket_id = Column(
         Integer,
+        ForeignKey("tickets.id"),
         nullable=True
     )
+
+    company_id = Column(
+        Integer,
+        ForeignKey("companies.id"),
+        nullable=True
+    )
+
+    company = relationship("Company")
     

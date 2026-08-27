@@ -6,67 +6,104 @@ function Navbar() {
 
   const navigate = useNavigate()
 
-  const [notificationCount, setNotificationCount] = useState(0)
+const [notificationCount, setNotificationCount] = useState(0)
 
-  const [notifications, setNotifications] =
-    useState([])
+const [notifications, setNotifications] =
+  useState([])
 
-  const [showNotifications, setShowNotifications] =
-    useState(false)
-  
-  useEffect(() => {
+const [showNotifications, setShowNotifications] =
+  useState(false)
 
-  const loadCount = async () => {
+const loadCount = async () => {
 
-    try {
+  try {
 
-      const response = await fetch(
-        "https://update-platform-api.onrender.com/notifications/unread-count"
-      )
+    const response = await fetch(
+      "https://update-platform-api.onrender.com/notifications/unread-count"
+    )
 
-      const data = await response.json()
+    const data = await response.json()
 
-      setNotificationCount(data.count)
+    setNotificationCount(data.count)
 
-    } catch (error) {
+  } catch (error) {
 
-      console.error(
-        "Error cargando notificaciones",
-        error
-      )
-
-    }
+    console.error(
+      "Error cargando contador",
+      error
+    )
 
   }
 
+}
+
+const loadNotifications = async () => {
+
+  try {
+
+    const response = await fetch(
+      "https://update-platform-api.onrender.com/notifications",
+      {
+        headers: {
+          Authorization:
+            `Bearer ${localStorage.getItem("token")}`
+        }
+      }
+    )
+
+    const data = await response.json()
+
+    setNotifications(data)
+
+  } catch (error) {
+
+    console.error(
+      "Error cargando notificaciones",
+      error
+    )
+
+  }
+
+}
+
+const markAsRead = async (id) => {
+
+  try {
+
+    await fetch(
+      `https://update-platform-api.onrender.com/notifications/${id}/read`,
+      {
+        method: "PATCH",
+        headers: {
+          Authorization:
+            `Bearer ${localStorage.getItem("token")}`
+        }
+      }
+    )
+
+    await loadCount()
+
+    await loadNotifications()
+
+  } catch (error) {
+
+    console.error(
+      "Error marcando notificación",
+      error
+    )
+
+  }
+
+}
+
+useEffect(() => {
+
   loadCount()
+
   loadNotifications()
 
 }, [])
-
-  const loadNotifications = async () => {
-
-    try {
-
-      const response = await fetch(
-        "https://update-platform-api.onrender.com/notifications"
-      )
-
-      const data = await response.json()
-
-      setNotifications(data)
-
-    } catch (error) {
-
-      console.error(
-        "Error cargando notificaciones",
-        error
-    )
-
-    }
-
-  }
-
+  
   const user = {
     full_name: localStorage.getItem("full_name"),
     email: localStorage.getItem("email"),
@@ -179,12 +216,16 @@ function Navbar() {
 
       ) : (
 
-        notifications.map((item) => (
+        notifications
+          .slice(0, 5)
+          .map((item) => (
 
           <div
 
             key={item.id}
 
+            onClick={() => markAsRead(item.id)}
+            
             className="
             border-b
             px-4

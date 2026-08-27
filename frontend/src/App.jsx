@@ -34,6 +34,7 @@ import PlatformUserDetail from "./pages/PlatformUserDetail"
 import Profile from "./pages/Profile"
 import CompanyEquipments from "./pages/CompanyEquipments"
 import EquipmentEdit from "./pages/EquipmentEdit"
+import Notifications from "./pages/Notifications"
 
 function App() {
 
@@ -184,6 +185,11 @@ function App() {
   <Route
   path="/company/tickets"
   element={<CompanyTickets />}
+  />
+
+  <Route
+  path="/notifications"
+  element={<Notifications />}
   />
 
 </Routes>
