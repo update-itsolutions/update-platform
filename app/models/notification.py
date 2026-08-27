@@ -8,7 +8,7 @@ from sqlalchemy import (
 )
 
 from datetime import datetime, UTC
-
+from sqlalchemy.orm import relationship
 from app.database import Base
 
 
@@ -60,4 +60,3 @@ class Notification(Base):
     )
 
     company = relationship("Company")
-    
