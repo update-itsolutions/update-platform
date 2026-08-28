@@ -39,13 +39,15 @@ def get_unread_count(
         pass
 
     # Admin Empresa ve solo su empresa
-    elif current_user.role == "admin_empresa":
-
+    elif current_user.role in [
+        "administrador",
+        "supervisor"
+    ]:
         query = query.filter(
             Notification.company_id ==
             current_user.company_id
         )
-
+    
     # Support ve solo empresas asignadas
     elif current_user.role == "support":
 
@@ -91,7 +93,10 @@ def get_notifications(
         pass
 
     # Admin Empresa
-    elif current_user.role == "admin_empresa":
+    elif current_user.role in [
+        "administrador",
+        "supervisor"
+    ]:
 
         query = query.filter(
             Notification.company_id ==
