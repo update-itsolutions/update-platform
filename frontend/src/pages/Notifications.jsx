@@ -92,7 +92,7 @@ function Notifications() {
 
           <p className="text-gray-500 mb-8">
 
-            Historial completo de actividades recientes en la plataforma
+            Historial de actividades recientes
 
           </p>
 
@@ -142,17 +142,15 @@ function Notifications() {
 
                       <span
                         className="
-                          w-3
-                          h-3
+                          w-2
+                          h-2
                           bg-red-500
                           rounded-full
                           animate-pulse
                         "
                       >
 
-                        Nuevo
-
-                      </span>
+                         </span>
 
                     )}
 

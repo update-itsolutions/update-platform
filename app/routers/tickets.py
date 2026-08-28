@@ -304,6 +304,27 @@ def update_ticket_status(
 
     db.commit()
 
+    notification = Notification(
+
+        title="Estado Actualizado",
+
+        message=(
+            f"Ticket #{ticket.id} cambió de "
+            f"{status_labels.get(old_status, old_status)} "
+            f"a "
+            f"{status_labels.get(ticket.status, ticket.status)}"
+        ),
+
+        type="TICKET_STATUS_CHANGED",
+
+        company_id=ticket.company_id
+
+    )
+
+    db.add(notification)
+
+    db.commit()
+
     return {
         "message": "Estado actualizado"
     }
@@ -349,6 +370,25 @@ def create_comment(
 
     db.commit()
 
+    notification = Notification(
+
+        title="Nuevo Comentario",
+
+        message=(
+            f"{current_user.full_name} comentó "
+            f"el ticket #{ticket.id}"
+        ),
+
+        type="TICKET_COMMENT",
+
+        company_id=ticket.company_id
+
+    )
+
+    db.add(notification)
+
+    db.commit()
+    
     history = EquipmentHistory(
         equipment_id=ticket.equipment_id,
         description=(
@@ -591,6 +631,25 @@ def assign_ticket(
     db.commit()
 
     db.refresh(ticket)
+
+    notification = Notification(
+
+        title="Ticket Asignado",
+
+        message=(
+            f"Ticket #{ticket.id} asignado a "
+            f"{assigned_user.full_name}"
+        ),
+
+        type="TICKET_ASSIGNED",
+
+        company_id=ticket.company_id
+
+    )
+
+    db.add(notification)
+
+    db.commit()
 
     return {
 
