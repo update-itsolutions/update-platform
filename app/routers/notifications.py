@@ -138,6 +138,7 @@ def get_notifications(
             "type": item.type,
             "is_read": item.is_read,
             "company_id": item.company_id,
+            "ticket_id": item.ticket_id,
             "created_at": item.created_at.isoformat()
             if item.created_at
             else None
