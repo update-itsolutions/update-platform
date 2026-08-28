@@ -11,6 +11,7 @@ from app.models.ticket_comment import TicketComment
 from app.models.equipment import Equipment
 from app.models.equipment_history import EquipmentHistory
 from app.models.notification import Notification
+from app.models.support_company_assignment import SupportCompanyAssignment
 
 from app.models.user import User
 from app.schemas import ticket
@@ -70,6 +71,18 @@ def create_ticket(
             status_code=404,
             detail="Equipo no encontrado"
         )
+    
+    support_assignment = db.query(
+        SupportCompanyAssignment
+    ).filter(
+        SupportCompanyAssignment.company_id == equipment.company_id
+    ).first()
+
+    assigned_support_id = (
+        support_assignment.user_id
+        if support_assignment
+        else None
+    )
 
     new_ticket = Ticket(
 
@@ -83,7 +96,9 @@ def create_ticket(
 
         company_id=equipment.company_id,
 
-        created_by=current_user.id
+        created_by=current_user.id,
+
+        assigned_to=assigned_support_id
 
     )
 
@@ -388,7 +403,7 @@ def create_comment(
     db.add(notification)
 
     db.commit()
-    
+
     history = EquipmentHistory(
         equipment_id=ticket.equipment_id,
         description=(
