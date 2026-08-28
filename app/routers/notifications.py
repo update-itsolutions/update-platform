@@ -23,13 +23,21 @@ def get_db():
 @router.get("/notifications/unread-count")
 def get_unread_count(
 
-    db: Session = Depends(get_db)
+    db: Session = Depends(get_db),
+    current_user=Depends(get_current_user)
 
 ):
 
-    count = db.query(
-        Notification
-    ).filter(
+    query = db.query(Notification)
+
+    if current_user.role != "sysadmin":
+
+        query = query.filter(
+            Notification.company_id ==
+            current_user.company_id
+        )
+
+    count = query.filter(
         Notification.is_read == False
     ).count()
 
@@ -37,18 +45,27 @@ def get_unread_count(
         "count": count
     }
 
+
 @router.get("/notifications")
 def get_notifications(
 
-    db: Session = Depends(get_db)
+    db: Session = Depends(get_db),
+    current_user=Depends(get_current_user)
 
 ):
 
-    notifications = db.query(
-        Notification
-    ).order_by(
+    query = db.query(Notification)
+
+    if current_user.role != "sysadmin":
+
+        query = query.filter(
+            Notification.company_id ==
+            current_user.company_id
+        )
+
+    notifications = query.order_by(
         Notification.created_at.desc()
-    ).limit(5).all()
+    ).all()
 
     result = []
 
@@ -66,19 +83,28 @@ def get_notifications(
 
             "is_read": item.is_read,
 
-            "created_at": item.created_at.isoformat()
-            if item.created_at
-            else None
+            "company_id": item.company_id,
+
+            "created_at": (
+                item.created_at.isoformat()
+                if item.created_at
+                else None
+            )
 
         })
 
-    return notifications
+    return result
+
 
 @router.patch("/notifications/{notification_id}/read")
 def mark_notification_read(
+
     notification_id: int,
+
     db: Session = Depends(get_db),
+
     current_user=Depends(get_current_user)
+
 ):
 
     notification = db.query(
@@ -88,24 +114,49 @@ def mark_notification_read(
     ).first()
 
     if not notification:
+
         raise HTTPException(
             status_code=404,
             detail="Notificación no encontrada"
         )
 
+    if current_user.role != "sysadmin":
+
+        if notification.company_id != current_user.company_id:
+
+            raise HTTPException(
+                status_code=403,
+                detail="Permisos insuficientes"
+            )
+
     notification.is_read = True
 
     db.commit()
 
-    return {"message": "Notificación marcada como leída"}
+    return {
+        "message": "Notificación marcada como leída"
+    }
+
 
 @router.patch("/notifications/read-all")
 def read_all_notifications(
+
     db: Session = Depends(get_db),
+
     current_user=Depends(get_current_user)
+
 ):
 
-    db.query(Notification).filter(
+    query = db.query(Notification)
+
+    if current_user.role != "sysadmin":
+
+        query = query.filter(
+            Notification.company_id ==
+            current_user.company_id
+        )
+
+    query.filter(
         Notification.is_read == False
     ).update(
         {"is_read": True}
@@ -113,4 +164,7 @@ def read_all_notifications(
 
     db.commit()
 
-    return {"message": "Todas las notificaciones han sido marcadas como leídas"}
+    return {
+        "message": "Todas las notificaciones han sido marcadas como leídas"
+    }
+

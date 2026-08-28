@@ -220,51 +220,84 @@ useEffect(() => {
           .slice(0, 5)
           .map((item) => (
 
-          <div
+<div
 
-            key={item.id}
+  key={item.id}
 
-            onClick={() => markAsRead(item.id)}
-            
-            className="
-            border-b
-            px-4
-            py-3
-            hover:bg-gray-50
-            cursor-pointer
-            transition
-            "
+  onClick={() => markAsRead(item.id)}
 
-          >
+  className={`
+    border-b
+    px-4
+    py-3
+    hover:bg-gray-200
+    cursor-pointer
+    transition
 
-            <div className="font-semibold text-sm text-[#0F3D3E]">
+    ${
+      !item.is_read
+        ? "bg-red-50/30"
+        : ""
+    }
+  `}
 
-              {item.title}
+>
 
-            </div>
+  <div className="flex justify-between items-start">
 
-            <div className="text-sm text-gray-800 mt-1">
+    <div>
 
-              {item.message}
+      <div className="font-semibold text-sm text-[#0F3D3E]">
 
-            </div>
+        {item.title}
 
-            <div className="text-xs text-gray-400 mt-1">
+      </div>
 
-              {
-                new Date(
-                  item.created_at
-                ).toLocaleString(
-                  "es-AR",
-                  {
-                    hour12: false
-                  }
-                )
-              }
+      <div className="text-sm text-gray-800 mt-1">
 
-            </div>
+        {item.message}
 
-          </div>
+      </div>
+
+    </div>
+
+    {
+
+      !item.is_read && (
+
+        <div
+          className="
+            w-2
+            h-2
+            bg-red-500
+            rounded-full
+            animate-pulse
+            mt-1
+          "
+        />
+
+      )
+
+    }
+
+  </div>
+
+  <div className="text-xs text-gray-400 mt-1">
+
+    {
+      new Date(
+        item.created_at
+      ).toLocaleString(
+        "es-AR",
+        {
+          hour12: false
+        }
+      )
+    }
+
+  </div>
+
+</div>
 
         ))
 

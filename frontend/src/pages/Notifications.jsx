@@ -114,14 +114,19 @@ function Notifications() {
 
                   key={item.id}
 
-                  className="
+                className={`
                     border
-                    border-gray-200
                     rounded-2xl
                     p-4
-                    hover:bg-gray-50
                     transition
-                  "
+                    hover:bg-gray-50
+
+                    ${
+                        !item.is_read
+                        ? "border-red-200 bg-red-50/30"
+                        : "border-gray-200"
+                    }
+                    `}
 
                 >
 
@@ -137,13 +142,11 @@ function Notifications() {
 
                       <span
                         className="
+                          w-3
+                          h-3
                           bg-red-500
-                          text-white
-                          text-xs
-                          px-2
-                          py-1
-                          rounded-lg
-                          font-semibold
+                          rounded-full
+                          animate-pulse
                         "
                       >
 
