@@ -70,6 +70,10 @@ def get_unread_count(
 
     count = query.count()
 
+    return {
+        "count": count
+    }
+
 @router.get("/notifications")
 def get_notifications(
 
