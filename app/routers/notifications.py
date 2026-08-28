@@ -5,6 +5,7 @@ from app.auth.security import get_current_user
 from app.database import SessionLocal
 
 from app.models.notification import Notification
+from app.models.support_company_assignment import SupportCompanyAssignment
 
 router = APIRouter()
 
@@ -28,73 +29,114 @@ def get_unread_count(
 
 ):
 
-    query = db.query(Notification)
+    query = db.query(Notification).filter(
+    Notification.is_read == False
+    )
 
-    if current_user.role != "sysadmin":
+    # SysAdmin ve todo
+    if current_user.role == "sysadmin":
+
+        pass
+
+    # Admin Empresa ve solo su empresa
+    elif current_user.role == "admin_empresa":
 
         query = query.filter(
             Notification.company_id ==
             current_user.company_id
         )
 
-    count = query.filter(
-        Notification.is_read == False
-    ).count()
+    # Support ve solo empresas asignadas
+    elif current_user.role == "support":
 
-    return {
-        "count": count
-    }
+        assignments = db.query(
+            SupportCompanyAssignment
+        ).filter(
+            SupportCompanyAssignment.user_id == current_user.id
+        ).all()
 
+        company_ids = [
+            item.company_id
+            for item in assignments
+        ]
+
+        if not company_ids:
+
+            return {"count": 0}
+
+        query = query.filter(
+            Notification.company_id.in_(company_ids)
+        )
+
+    count = query.count()
 
 @router.get("/notifications")
 def get_notifications(
 
     db: Session = Depends(get_db),
-    current_user=Depends(get_current_user)
+
+    current_user = Depends(get_current_user)
 
 ):
 
     query = db.query(Notification)
 
-    if current_user.role != "sysadmin":
+    # SysAdmin
+    if current_user.role == "sysadmin":
+
+        pass
+
+    # Admin Empresa
+    elif current_user.role == "admin_empresa":
 
         query = query.filter(
             Notification.company_id ==
             current_user.company_id
         )
 
+    # Support
+    elif current_user.role == "support":
+
+        assignments = db.query(
+            SupportCompanyAssignment
+        ).filter(
+            SupportCompanyAssignment.user_id == current_user.id
+        ).all()
+
+        company_ids = [
+            item.company_id
+            for item in assignments
+        ]
+
+        if not company_ids:
+
+            return []
+
+        query = query.filter(
+            Notification.company_id.in_(company_ids)
+        )
+
     notifications = query.order_by(
         Notification.created_at.desc()
-    ).all()
+    ).limit(50).all()
 
-    result = []
+    return [
 
-    for item in notifications:
-
-        result.append({
-
+        {
             "id": item.id,
-
             "title": item.title,
-
             "message": item.message,
-
             "type": item.type,
-
             "is_read": item.is_read,
-
             "company_id": item.company_id,
+            "created_at": item.created_at.isoformat()
+            if item.created_at
+            else None
+        }
 
-            "created_at": (
-                item.created_at.isoformat()
-                if item.created_at
-                else None
-            )
+        for item in notifications
 
-        })
-
-    return result
-
+    ]
 
 @router.patch("/notifications/{notification_id}/read")
 def mark_notification_read(
