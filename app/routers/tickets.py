@@ -119,7 +119,9 @@ def create_ticket(
 
         type="TICKET_CREATED",
 
-        company_id=equipment.company_id
+        company_id=equipment.company_id,
+
+        ticket_id=new_ticket.id
 
     )
 
@@ -332,7 +334,9 @@ def update_ticket_status(
 
         type="TICKET_STATUS_CHANGED",
 
-        company_id=ticket.company_id
+        company_id=ticket.company_id,
+
+        ticket_id=ticket.id
 
     )
 
@@ -396,7 +400,9 @@ def create_comment(
 
         type="TICKET_COMMENT",
 
-        company_id=ticket.company_id
+        company_id=ticket.company_id,
+
+        ticket_id=ticket.id
 
     )
 
@@ -658,7 +664,9 @@ def assign_ticket(
 
         type="TICKET_ASSIGNED",
 
-        company_id=ticket.company_id
+        company_id=ticket.company_id,
+
+        ticket_id=ticket.id
 
     )
 
