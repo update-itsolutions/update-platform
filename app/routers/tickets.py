@@ -102,7 +102,9 @@ def create_ticket(
             f"{current_user.full_name}"
         ),
 
-        type="TICKET_CREATED"
+        type="TICKET_CREATED",
+
+        company_id=equipment.company_id
 
     )
 
