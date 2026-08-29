@@ -281,7 +281,7 @@ def get_my_profile(
 
         Ticket.assigned_to == current_user.id,
 
-        Ticket.status != "closed"
+        Ticket.status == "OPEN"
 
     ).count()
     
@@ -291,7 +291,7 @@ def get_my_profile(
 
         Ticket.assigned_to == current_user.id,
 
-        Ticket.status == "closed"
+        Ticket.status == "CLOSED"
 
     ).count()
 

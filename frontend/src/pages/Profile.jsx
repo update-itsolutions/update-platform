@@ -2,6 +2,19 @@ import { useEffect, useState } from "react"
 import axios from "axios"
 
 import Navbar from "../components/Navbar"
+import {
+  FaBuilding,
+  FaStore,
+  FaDesktop,
+  FaCheckCircle,
+  FaTimesCircle,
+  FaTicketAlt,
+  FaFolderOpen,
+  FaSpinner,
+  FaCheckDouble,
+  FaChartLine
+} from "react-icons/fa"
+
 import { useNavigate } from "react-router-dom"
 
 function Profile() {
@@ -32,6 +45,16 @@ function Profile() {
   CRITICAL: "Crítica"
 
   }
+
+  const effectiveness =
+    profile?.stats?.total_tickets > 0
+      ? Math.round(
+          (
+            profile.stats.closed_tickets /
+            profile.stats.total_tickets
+          ) * 100
+        )
+      : 0
 
   const getStatusColor = (status) => {
 
@@ -191,58 +214,239 @@ setMyTickets(
 
         </div>
 
-        {/* EMPRESAS */}
+{/* KPI DASHBOARD */}
 
-        <div className="bg-white rounded-3xl p-6 shadow-sm">
-<div className="grid grid-cols-4 gap-4 mb-6">
+<div className="space-y-6 mb-8">
 
-  <div className="bg-white rounded-2xl p-5 shadow-sm">
+  {/* FILA SUPERIOR */}
 
-    <p className="text-gray-500 text-sm">
-      🏢Empresas
-    </p>
+  <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
 
-    <p className="text-3xl font-bold mt-2">
-      {profile.stats.companies}
-    </p>
+    <div className="bg-white rounded-2xl p-4 shadow-sm border">
+
+      <div className="flex items-center gap-3">
+
+        <FaBuilding className="text-blue-600 text-2xl" />
+
+        <div>
+
+          <p className="text-xs text-gray-500">
+            Total de Empresas Asignadas
+          </p>
+
+          <p className="text-2xl font-bold">
+            {profile.stats.companies}
+          </p>
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <div className="bg-white rounded-2xl p-4 shadow-sm border">
+
+      <div className="flex items-center gap-3">
+
+        <FaStore className="text-purple-600 text-2xl" />
+
+        <div>
+
+          <p className="text-xs text-gray-500">
+            Total de Sucursales
+          </p>
+
+          <p className="text-2xl font-bold">
+            {profile.stats.branches}
+          </p>
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <div className="bg-white rounded-2xl p-4 shadow-sm border">
+
+      <div className="flex items-center gap-3">
+
+        <FaDesktop className="text-cyan-600 text-2xl" />
+
+        <div>
+
+          <p className="text-xs text-gray-500">
+            Total de Equipos
+          </p>
+
+          <p className="text-2xl font-bold">
+            {profile.stats.equipments}
+          </p>
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <div className="bg-white rounded-2xl p-4 shadow-sm border">
+
+      <div className="flex items-center gap-3">
+
+        <FaCheckCircle className="text-green-600 text-2xl" />
+
+        <div>
+
+          <p className="text-xs text-gray-500">
+            Equipos Activos
+          </p>
+
+          <p className="text-2xl font-bold text-green-600">
+            {profile.stats.active_equipments}
+          </p>
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <div className="bg-white rounded-2xl p-4 shadow-sm border">
+
+      <div className="flex items-center gap-3">
+
+        <FaTimesCircle className="text-red-600 text-2xl" />
+
+        <div>
+
+          <p className="text-xs text-gray-500">
+            Equipos Inactivos
+          </p>
+
+          <p className="text-2xl font-bold text-red-600">
+            {profile.stats.inactive_equipments}
+          </p>
+
+        </div>
+
+      </div>
+
+    </div>
 
   </div>
 
-  <div className="bg-white rounded-2xl p-5 shadow-sm">
+  {/* FILA INFERIOR */}
 
-    <p className="text-gray-500 text-sm">
-      🎟️Tickets Abiertos
-    </p>
+  <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
 
-    <p className="text-3xl font-bold text-red-700 mt-2">
-      {profile.stats.open_tickets}
-    </p>
+    <div className="bg-white rounded-2xl p-4 shadow-sm border">
 
-  </div>
+      <div className="flex items-center gap-3">
 
-  <div className="bg-white rounded-2xl p-5 shadow-sm">
+        <FaTicketAlt className="text-slate-600 text-2xl" />
 
-    <p className="text-gray-500 text-sm">
-      ✅Tickets Cerrados
-    </p>
+        <div>
 
-    <p className="text-3xl font-bold text-green-600 mt-2">
-      {profile.stats.closed_tickets}
-    </p>
+          <p className="text-xs text-gray-500">
+            Total de Tickets Asignados
+          </p>
 
-  </div>
+          <p className="text-2xl font-bold">
+            {profile.stats.total_tickets}
+          </p>
 
-  <div className="bg-white rounded-2xl p-5 shadow-sm">
+        </div>
 
-    <p className="text-gray-500 text-sm">
-      🖥️Equipos
-    </p>
+      </div>
 
-    <p className="text-3xl font-bold text-blue-600 mt-2">
-      {profile.stats.equipments}
-    </p>
+    </div>
 
-  </div>
+    <div className="bg-white rounded-2xl p-4 shadow-sm border">
+
+      <div className="flex items-center gap-3">
+
+        <FaFolderOpen className="text-green-600 text-2xl" />
+
+        <div>
+
+          <p className="text-xs text-gray-500">
+            Tickets Abiertos
+          </p>
+
+          <p className="text-2xl font-bold text-green-600">
+            {profile.stats.open_tickets}
+          </p>
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <div className="bg-white rounded-2xl p-4 shadow-sm border">
+
+      <div className="flex items-center gap-3">
+
+        <FaSpinner className="text-yellow-600 text-2xl" />
+
+        <div>
+
+          <p className="text-xs text-gray-500">
+            Tickets en Progreso
+          </p>
+
+          <p className="text-2xl font-bold text-yellow-600">
+            {profile.stats.in_progress_tickets}
+          </p>
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <div className="bg-white rounded-2xl p-4 shadow-sm border">
+
+      <div className="flex items-center gap-3">
+
+        <FaCheckDouble className="text-red-600 text-2xl" />
+
+        <div>
+
+          <p className="text-xs text-gray-500">
+            Tickets Cerrados
+          </p>
+
+          <p className="text-2xl font-bold text-red-600">
+            {profile.stats.closed_tickets}
+          </p>
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <div className="bg-white rounded-2xl p-4 shadow-sm border">
+
+      <div className="flex items-center gap-3">
+
+        <FaChartLine className="text-indigo-600 text-2xl" />
+
+        <div>
+
+          <p className="text-xs text-gray-500">
+            Efectividad
+          </p>
+
+          <p className="text-2xl font-bold text-indigo-600">
+            {effectiveness}%
+          </p>
+
+        </div>
+
+      </div>
+
+    </div>
 
 </div>
 
@@ -270,17 +474,45 @@ setMyTickets(
 
                 >
 
-                  <p className="font-semibold">
-
+                  <p className="font-semibold text-lg">
                     {company.name}
-
                   </p>
 
-                  <p className="text-smtext-gray-500">
-
+                  <p className="text-sm text-gray-500 mb-3">
                     ID: #000{company.id}
+                    </p>
 
-                  </p>
+                    <div className="grid grid-cols-2 gap-2 text-sm">
+
+                      <div>
+                      🏬 Sucursales:
+                        <strong className="ml-1">
+                          {company.branches}
+                      </strong>
+                    </div>
+
+                      <div>
+                      🖥️ Equipos:
+                      <strong className="ml-1">
+                        {company.equipments}
+                      </strong>
+                    </div>
+
+                    <div>
+                      🟢 Activos:
+                      <strong className="ml-1 text-green-600">
+                        {company.active_equipments}
+                      </strong>
+                    </div>
+
+                    <div>
+                      🔴 Inactivos:
+                      <strong className="ml-1 text-red-600">
+                        {company.inactive_equipments}
+                      </strong>
+                    </div>
+
+                  </div>
 
                 </div>
 

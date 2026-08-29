@@ -77,6 +77,12 @@ def get_platform_stats(
         Ticket.status == "CLOSED"
     ).count()
 
+    in_progress_tickets = db.query(
+        Ticket
+    ).filter(
+        Ticket.status == "IN_PROGRESS"
+    ).count()
+
     alerts = (
 
         db.query(Equipment)
@@ -110,6 +116,9 @@ def get_platform_stats(
         "tickets_closed":
             closed_tickets,
 
+        "tickets_in_progress":
+            in_progress_tickets,
+            
         "alerts":
             alerts
 
