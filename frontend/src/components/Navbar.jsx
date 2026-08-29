@@ -95,7 +95,7 @@ const markAsRead = async (notification) => {
     if (notification.ticket_id) {
 
       navigate(
-        `/company/tickets/${notification.ticket_id}`
+        `/company/${notification.company_id}/tickets/${notification.ticket_id}`
       )
 
     }

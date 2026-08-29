@@ -21,7 +21,7 @@ function TicketDetail() {
 
     fetchTicket()
 
-  }, [ticketId])
+  }, [])
 
   const changeStatus = async (newStatus) => {
 
