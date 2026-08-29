@@ -75,31 +75,34 @@ const loadNotifications = async () => {
 
 }
 
-const markAsRead = async (id) => {
+const markAsRead = async (notification) => {
 
   try {
 
     await fetch(
-      `https://update-platform-api.onrender.com/notifications/${id}/read`,
+      `https://update-platform-api.onrender.com/notifications/${notification.id}/read`,
       {
         method: "PATCH",
         headers: {
-          Authorization:
-            `Bearer ${localStorage.getItem("token")}`
+          Authorization: `Bearer ${localStorage.getItem("token")}`
         }
       }
     )
 
-    await loadCount()
+    loadNotifications()
+    loadCount()
 
-    await loadNotifications()
+    if (notification.ticket_id) {
+
+      navigate(
+        `/company/tickets/${notification.ticket_id}`
+      )
+
+    }
 
   } catch (error) {
 
-    console.error(
-      "Error marcando notificación",
-      error
-    )
+    console.error(error)
 
   }
 
@@ -233,7 +236,7 @@ useEffect(() => {
 
   key={item.id}
 
-  onClick={() => markAsRead(item.id)}
+  onClick={() => markAsRead(item)}
 
   className={`
     border-b

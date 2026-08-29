@@ -223,15 +223,14 @@ const handleLogin = async () => {
 
           </div>
 
-          <div className="flex items-center gap-3">
-
-            <FaGlobe />
-
-            <span>
-              www.updateitsolutions.com
-            </span>
-
-          </div>
+          <a href="https://updateitsolutions.com" target="_blank" rel="noopener noreferrer" className="no-underline text-inherit">
+            <div className="mt-3 flex items-center gap-3 cursor-pointer hover:opacity-80 transition-opacity">
+              <FaGlobe />
+              <span>
+                www.updateitsolutions.com
+              </span>
+            </div>
+          </a>
 
         </div>
 

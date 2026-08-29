@@ -168,6 +168,28 @@ const isSysAdmin =
 
         </div>
 )}
+{isSupport && (
+        <div className="flex justify-end mb-5">
+
+          <button
+            onClick={() => navigate(`/company/${companyId}/equipments/`)()}
+            className="
+              bg-sky-300
+              hover:bg-sky-400
+              text-white
+              px-5
+              py-2
+              rounded-xl
+              transition
+              font-semibold
+              shadow-sm
+            "
+          >
+            Volver a Equipos
+          </button>
+
+        </div>
+)}
 {isAdminEmpresa && (
         <div className="flex justify-end mb-5">
 
