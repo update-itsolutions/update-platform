@@ -22,7 +22,10 @@ function Profile() {
   const [myTickets, setMyTickets] = useState([])
 
   const navigate = useNavigate()
- 
+
+  const [showAllCompanies, setShowAllCompanies] = useState(false)
+  const [showAllTickets, setShowAllTickets] = useState(false)
+
   const [profile, setProfile] = useState(null)
   const statusLabels = {
 
@@ -450,81 +453,142 @@ setMyTickets(
 
 </div>
 
-          <h2 className="text-xl font-bold mb-5">
+          <h2 className="text-xl font-bold mb-1">
 
             Empresas Asignadas
 
           </h2>
         
-          <div className="space-y-3">
+          <div className="bg-white rounded-2xl">
 
-            {profile.companies.map(
+{profile.companies
+  .slice(
+    0,
+    showAllCompanies
+      ? profile.companies.length
+      : 10
+  )
+  .map((company) => (
 
-              (company) => (
+  <div
 
-                <div
+    key={company.id}
 
-                  key={company.id}
+    className="
+      border
+      rounded-xl
+      p-4
+      hover:bg-gray-50
+      transition
+    "
 
-                  className="
-                    border
-                    rounded-xl
-                    p-4
-                  "
+  >
 
-                >
+    <div className="flex justify-between items-start">
 
-                  <p className="font-semibold text-lg">
-                    {company.name}
-                  </p>
+      <div>
 
-                  <p className="text-sm text-gray-500 mb-3">
-                    ID: #000{company.id}
-                    </p>
+        <p className="font-semibold text-lg">
 
-                    <div className="grid grid-cols-2 gap-2 text-sm">
+          {company.name}
 
-                      <div>
-                      🏬 Sucursales:
-                        <strong className="ml-1">
-                          {company.branches}
-                      </strong>
-                    </div>
+        </p>
 
-                      <div>
-                      🖥️ Equipos:
-                      <strong className="ml-1">
-                        {company.equipments}
-                      </strong>
-                    </div>
+        <p className="text-sm text-gray-500">
 
-                    <div>
-                      🟢 Activos:
-                      <strong className="ml-1 text-green-600">
-                        {company.active_equipments}
-                      </strong>
-                    </div>
+          ID: #000{company.id}
 
-                    <div>
-                      🔴 Inactivos:
-                      <strong className="ml-1 text-red-600">
-                        {company.inactive_equipments}
-                      </strong>
-                    </div>
+        </p>
 
-                  </div>
+        <div className="mt-5 gap-7 grid grid-cols-4 text-xs text-gray-700">
 
-                </div>
+          <p>
+            🏢 Sucursales: {company.branches}
+          </p>
 
-              )
+          <p>
+            🖥️ Equipos: {company.equipments}
+          </p>
 
-            )}
+          <p>
+            ✅ Activos: {company.active_equipments}
+          </p>
+
+          <p>
+            ❌ Inactivos: {company.inactive_equipments}
+          </p>
+
+        </div>
+
+      </div>
+
+      <button
+
+        onClick={() =>
+          navigate(`/platform/company/${company.id}`)
+        }
+
+  className="
+    bg-gray-600
+    hover:bg-gray-800
+    text-white
+    px-4
+    py-2
+    rounded-xl
+    text-sm
+  "
+
+      >
+
+        Ver Empresa
+
+      </button>
+
+    </div>
+
+  </div>
+
+))}
+{profile.companies.length > 10 && (
+
+  <div className="mt-4 text-center">
+
+    <button
+
+      onClick={() =>
+        setShowAllCompanies(
+          !showAllCompanies
+        )
+      }
+
+      className="
+        bg-gray-500
+        hover:bg-gray-700
+        text-white
+        px-5
+        py-2
+        rounded-xl
+        font-semibold
+      "
+
+    >
+
+      {showAllCompanies
+        ? "Ver menos"
+        : `Ver más (${profile.companies.length - 10})`
+      }
+
+    </button>
+
+  </div>
+
+)}
 
           </div>
         
-        <div className="bg-white rounded-3xl shadow-sm mt-6">
+        <div className="rounded-3xl shadow-sm mt-3">
 
-  <h2 className="text-xl font-bold mb-5">
+  <h2 className="text-xl font-bold mt-5 mb-7">
 
     Mis Tickets
 
@@ -540,9 +604,16 @@ setMyTickets(
 
   ) : (
 
-    <div className="space-y-3">
+    <div className="bg-white rounded-xl space-y-3">
 
-      {myTickets.map((ticket) => (
+      {myTickets
+  .slice(
+    0,
+    showAllTickets
+      ? myTickets.length
+      : 10
+  )
+  .map((ticket) => (
 
         <div
 
@@ -616,7 +687,40 @@ setMyTickets(
         </div>
     </div>
     ))}
+{myTickets.length > 10 && (
 
+  <div className="mt-4 text-center">
+
+    <button
+
+      onClick={() =>
+        setShowAllTickets(
+          !showAllTickets
+        )
+      }
+
+      className="
+        bg-gray-500
+        hover:bg-gray-700
+        text-white
+        px-5
+        py-2
+        rounded-xl
+        font-semibold
+      "
+
+    >
+
+      {showAllTickets
+        ? "Ver menos"
+        : `Ver más (${myTickets.length - 10})`
+      }
+
+    </button>
+
+  </div>
+
+)}
 </div>
 
 )}
