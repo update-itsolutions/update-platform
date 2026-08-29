@@ -21,6 +21,8 @@ from app.schemas.platform_user import (
     PlatformUserUpdate
 )
 
+from app.models.branch import Branch
+
 router = APIRouter(tags=["Platform Users"])
 
 @router.get("/platform/users")
@@ -292,12 +294,58 @@ def get_my_profile(
         Ticket.status == "closed"
 
     ).count()
-    
+
+    in_progress_tickets = db.query(
+        Ticket
+    ).filter(
+
+        Ticket.assigned_to == current_user.id,
+
+        Ticket.status == "IN_PROGRESS"
+
+    ).count()
+
+    total_tickets = db.query(
+        Ticket
+    ).filter(
+
+        Ticket.assigned_to == current_user.id
+
+    ).count()
+
     managed_equipments = db.query(
         Equipment
     ).filter(
 
         Equipment.company_id.in_(company_ids)
+
+    ).count()
+
+    active_equipments = db.query(
+        Equipment
+    ).filter(
+
+        Equipment.company_id.in_(company_ids),
+
+        Equipment.is_active == True
+
+    ).count()
+
+    inactive_equipments = db.query(
+        Equipment
+    ).filter(
+
+        Equipment.company_id.in_(company_ids),
+
+        Equipment.is_active == False
+
+    ).count()
+
+    total_branches = db.query(
+        Branch
+    ).filter(
+
+        Branch.company_id.in_(company_ids)
 
     ).count()
 
@@ -319,13 +367,28 @@ def get_my_profile(
 
         "companies": [
 
-            {
+                {
+                    "id": company.id,
+                    "name": company.name,
 
-                "id": company.id,
+                    "branches": db.query(Branch).filter(
+                        Branch.company_id == company.id
+                    ).count(),
 
-                "name": company.name
+                    "equipments": db.query(Equipment).filter(
+                        Equipment.company_id == company.id
+                    ).count(),
 
-            }
+                    "active_equipments": db.query(Equipment).filter(
+                        Equipment.company_id == company.id,
+                        Equipment.is_active == True
+                    ).count(),
+
+                    "inactive_equipments": db.query(Equipment).filter(
+                        Equipment.company_id == company.id,
+                        Equipment.is_active == False
+                    ).count()
+                }
 
             for company in companies
 
@@ -335,14 +398,29 @@ def get_my_profile(
             "companies":
                 assigned_companies_count,
 
+            "branches":
+                total_branches,
+
+            "equipments":
+                managed_equipments,
+
+            "active_equipments":
+                active_equipments,
+
+            "inactive_equipments":
+                inactive_equipments,
+
+            "total_tickets":
+                total_tickets,
+
             "open_tickets":
                 open_tickets,
 
-            "closed_tickets":
-                closed_tickets,
+            "in_progress_tickets":
+                in_progress_tickets,
 
-            "equipments":
-                managed_equipments
+            "closed_tickets":
+                closed_tickets
 
         },
 
