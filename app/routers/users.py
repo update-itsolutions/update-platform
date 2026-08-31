@@ -27,7 +27,7 @@ from app.auth.security import (
 
 from app.auth.roles import management_required, user_management_required
 from app.auth.roles import sysadmin_required
-from app.auth.roles import company_required
+from app.auth.roles import viewer_required
 
 from app.auth.constants import (
     ROLE_ADMIN_EMPRESA,
@@ -495,7 +495,7 @@ def get_support_contact(
 
     db: Session = Depends(get_db),
 
-    current_user = Depends(company_required)
+    current_user = Depends(viewer_required)
 
 ):
 
