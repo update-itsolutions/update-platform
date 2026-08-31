@@ -102,6 +102,8 @@ def register(
 
         email=user.email,
 
+        phone=user.phone,
+
         password=hash_password(user.password),
 
         role=ROLE_ADMIN_EMPRESA,

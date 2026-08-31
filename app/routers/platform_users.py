@@ -49,6 +49,8 @@ def get_platform_users(
 
             "email": user.email,
 
+            "phone": user.phone,
+
             "role": user.role,
 
             "is_active": user.is_active
@@ -103,6 +105,8 @@ def get_platform_user(
         "full_name": user.full_name,
 
         "email": user.email,
+
+        "phone": user.phone,
 
         "role": user.role,
 
