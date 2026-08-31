@@ -8,4 +8,5 @@ class CreateUserByAdmin(BaseModel):
     email: str
     password: str
     role: str
+    phone: str | None = None
     

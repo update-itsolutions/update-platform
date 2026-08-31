@@ -118,7 +118,7 @@ def get_platform_stats(
 
         "tickets_in_progress":
             in_progress_tickets,
-            
+
         "alerts":
             alerts
 
@@ -358,6 +358,7 @@ def create_platform_user(
         first_name=user_data.first_name,
         last_name=user_data.last_name,
         email=user_data.email,
+        phone=user_data.phone,
         password=hash_password(
             user_data.password
         ),
@@ -371,7 +372,8 @@ def create_platform_user(
     return {
         "message": "Usuario plataforma creado",
         "email": new_user.email,
-        "role": new_user.role
+        "role": new_user.role,
+        "phone": new_user.phone
     }
 
 # ACTIVE/DESACTIVE USER PLATFORM

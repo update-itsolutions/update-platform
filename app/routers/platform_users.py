@@ -222,6 +222,8 @@ def update_platform_user(
 
     user.email = payload.email
 
+    user.phone = payload.phone
+
     user.role = payload.role
 
     if payload.password:
@@ -360,6 +362,8 @@ def get_my_profile(
         "last_name": current_user.last_name,
 
         "email": current_user.email,
+        
+        "phone": current_user.phone,
 
         "role": current_user.role,
 
@@ -448,7 +452,11 @@ def get_support_users(
 
             "id": user.id,
 
-            "full_name": user.full_name
+            "full_name": user.full_name,
+
+            "email": user.email,
+
+            "phone": user.phone
 
         }
 

@@ -876,16 +876,16 @@ const isSysAdmin =
 
           </span>
 
-            <p>
-              Prioridad: {priorityLabels[ticket.priority]}
+            <p className="mt-3 space-y-1 font-bold text-sm text-gray-600">
+            Prioridad: {priorityLabels[ticket.priority]}
             </p>
-
+        
             <p>
               Creado por: {ticket.created_by_name}
             </p>
 
             <p>
-              Fecha: {
+              Fecha de creación: {
                 new Date(ticket.created_at)
                 .toLocaleString("es-AR", { hour12: false })
               }

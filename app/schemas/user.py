@@ -9,6 +9,7 @@ class UserCreate(BaseModel):
     company_name: str
     email: str
     password: str
+    phone: str | None = None
 
 class UserInternalCreate(BaseModel):
 
@@ -17,7 +18,7 @@ class UserInternalCreate(BaseModel):
     email: str
     password: str
     role: str
-
+    phone: str | None = None
 
 class CreateUserByAdmin(BaseModel):
 
@@ -26,6 +27,7 @@ class CreateUserByAdmin(BaseModel):
     email: str
     password: str
     role: str
+    phone: str | None = None
 
 class PlatformUserCreate(BaseModel):
     first_name: str
@@ -33,6 +35,7 @@ class PlatformUserCreate(BaseModel):
     email: str
     password: str
     role: str
+    phone: str | None = None
 
 class CompanyUserCreate(BaseModel):
     company_id: int
@@ -41,12 +44,14 @@ class CompanyUserCreate(BaseModel):
     email: str
     password: str
     role: str
+    phone: str | None = None
 
 class UserUpdate(BaseModel):
     first_name: str
     last_name: str
     email: str
     role: str
+    phone: str | None = None
 
 class PasswordUpdate(BaseModel):
     password: str

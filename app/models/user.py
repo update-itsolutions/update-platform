@@ -53,6 +53,8 @@ class User(Base):
         back_populates="users"
     )
 
+    phone = Column(String, nullable=True)
+    
     @property
     def full_name(self):
 

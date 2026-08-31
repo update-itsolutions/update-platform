@@ -180,11 +180,13 @@ def login(
 
         "full_name": db_user.full_name,
         "email": db_user.email,
+        "phone": db_user.phone,
         "role": db_user.role,
 
         "user": {
             "full_name": db_user.full_name,
             "email": db_user.email,
+            "phone": db_user.phone,
             "role": db_user.role
         }
 
@@ -326,6 +328,8 @@ def create_internal_user(
 
         email=user_data.email,
 
+        phone=user_data.phone,
+
         password=hash_password(
             user_data.password
         ),
@@ -349,6 +353,8 @@ def create_internal_user(
         "message": "Usuario creado",
 
         "email": new_user.email,
+
+        "phone": new_user.phone,
 
         "role": new_user.role
 
@@ -383,6 +389,8 @@ def get_users(
 
             "email": user.email,
 
+            "phone": user.phone,
+
             "role": user.role
 
         }
@@ -411,6 +419,8 @@ def get_me(
         "full_name": current_user.full_name,
 
         "email": current_user.email,
+
+        "phone": current_user.phone,
 
         "role": current_user.role,
 
@@ -441,6 +451,8 @@ def get_my_company(
 
             "user_email": current_user.email,
 
+            "phone": current_user.phone,
+
             "role": current_user.role,
 
             "user_name": current_user.full_name
@@ -465,6 +477,8 @@ def get_my_company(
         "company_id": company.id,
 
         "user_email": current_user.email,
+
+        "phone": current_user.phone,
 
         "role": current_user.role,
 
@@ -502,6 +516,8 @@ def create_sysadmin(
 
         email=user_data.email,
 
+        phone=user_data.phone,
+
         password=hash_password(
             str(user_data.password)[:20]
         ),
@@ -525,6 +541,8 @@ def create_sysadmin(
         "message": "Sysadmin creado",
 
         "email": new_user.email,
+
+        "phone": new_user.phone,
 
         "role": new_user.role
 
@@ -558,6 +576,7 @@ def create_platform_user(
         first_name=user_data.first_name,
         last_name=user_data.last_name,
         email=user_data.email,
+        phone=user_data.phone,
         password=hash_password(
             user_data.password
         ),
@@ -571,6 +590,7 @@ def create_platform_user(
     return {
         "message": "Usuario plataforma creado",
         "email": new_user.email,
+        "phone": new_user.phone,
         "role": new_user.role
     }
 
@@ -611,6 +631,7 @@ def update_user(
     user.first_name = user_data.first_name
     user.last_name = user_data.last_name
     user.email = user_data.email
+    user.phone = user_data.phone
     user.role = user_data.role
 
     db.commit()

@@ -5,6 +5,7 @@ function CreatePlatformUser() {
   const [firstName, setFirstName] = useState("")
   const [lastName, setLastName] = useState("")
   const [email, setEmail] = useState("")
+  const [phone, setPhone] = useState("")
   const [password, setPassword] = useState("")
   const [role, setRole] = useState("sysadmin")
   const handleCreate = async () => {
@@ -16,6 +17,7 @@ function CreatePlatformUser() {
           first_name: firstName,
           last_name: lastName,
           email,
+          phone,
           password,
           role
         },
@@ -29,6 +31,7 @@ function CreatePlatformUser() {
       setFirstName("")
       setLastName("")
       setEmail("")
+      setPhone("")
       setPassword("")
       setRole("sysadmin")
     }
@@ -94,6 +97,21 @@ function CreatePlatformUser() {
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
+                className="border border-gray-300 rounded-xl px-4 py-3 outline-none"
+              />
+            </div>
+            {/* TELÉFONO */}
+            <div className="flex flex-col md:col-span-2">
+              <label className="text-sm text-gray-500 mb-2">
+                Teléfono
+              </label>
+
+              <input
+                type="text"
+                value={phone}
+                onChange={(e) =>
+                  setPhone(e.target.value)
+                }
                 className="border border-gray-300 rounded-xl px-4 py-3 outline-none"
               />
             </div>

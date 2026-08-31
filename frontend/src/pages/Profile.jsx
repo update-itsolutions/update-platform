@@ -25,6 +25,10 @@ function Profile() {
 
   const [showAllCompanies, setShowAllCompanies] = useState(false)
   const [showAllTickets, setShowAllTickets] = useState(false)
+  
+  const [companySearch, setCompanySearch] = useState("")
+  const [ticketSearch, setTicketSearch] = useState("")
+  const [ticketFilter, setTicketFilter] = useState("ALL")
 
   const [profile, setProfile] = useState(null)
   const statusLabels = {
@@ -49,6 +53,80 @@ function Profile() {
 
   }
 
+  const getStatusOrder = (status) => {
+
+    switch (status) {
+
+      case "OPEN":
+        return 1
+
+      case "IN_PROGRESS":
+        return 2
+
+      case "CLOSED":
+        return 3
+
+      default:
+        return 4
+
+    }
+
+  }
+
+  const sortedTickets = [...myTickets].sort((a, b) => {
+
+    const statusDiff =
+      getStatusOrder(a.status) -
+      getStatusOrder(b.status)
+
+    if (statusDiff !== 0)
+      return statusDiff
+
+    return (
+      new Date(b.created_at) -
+      new Date(a.created_at)
+    )
+
+  })
+
+  const filteredTickets = sortedTickets.filter(
+
+    (ticket) =>
+
+      ticket.title
+        .toLowerCase()
+        .includes(ticketSearch.toLowerCase())
+
+      ||
+
+      ticket.company_name
+        .toLowerCase()
+        .includes(ticketSearch.toLowerCase())
+
+      ||
+
+      ticket.id
+        .toString()
+        .includes(ticketSearch)
+
+  )
+
+  const filteredByStatus = filteredTickets.filter(
+    (ticket) => {
+
+      if (ticketFilter === "ALL")
+        return true
+
+      return ticket.status === ticketFilter
+
+    }
+  )
+  
+    const displayedTickets =
+      showAllTickets
+        ? filteredByStatus
+        : filteredByStatus.slice(0, 10)
+  
   const effectiveness =
     profile?.stats?.total_tickets > 0
       ? Math.round(
@@ -154,12 +232,24 @@ setMyTickets(
 
   }
 
+    const filteredCompanies = profile.companies.filter(
+
+    (company) =>
+
+      company.name
+        .toLowerCase()
+        .includes(
+          companySearch.toLowerCase()
+        )
+
+  )
+
   return (
 
     <>
 
       <Navbar />
-      <div className="flex justify-end bg-gray-100 p-3">
+      <div className="flex justify-end bg-white/60 p-3">
           <button
             onClick={() => window.history.back()}
             className="bg-sky-300 hover:bg-sky-400 text-white px-5 py-2 rounded-xl transition font-semibold shadow-sm"
@@ -167,13 +257,18 @@ setMyTickets(
             Volver al Inicio
           </button>
       </div>
-      <div className="min-h-screen bg-white/60 p-6">
+            <div className="flex justify-left text-2xl text-xl font-bold bg-white/60 p-4">
+
+            Bienvenido, {profile.first_name}!
+
+      </div>
+      <div className="min-h-screen bg-white/60 p-3">
 
         {/* PERFIL */}
 
         <div className="bg-white rounded-3xl p-6 shadow-sm mb-6">
 
-          <h1 className="text-3xl font-bold">
+          <h1 className="text-2xl font-semibold">
 
             {profile.full_name}
 
@@ -458,14 +553,37 @@ setMyTickets(
             Empresas Asignadas
 
           </h2>
-        
+        <input
+
+  type="text"
+
+  placeholder="Buscar empresa..."
+
+  value={companySearch}
+
+  onChange={(e) =>
+    setCompanySearch(
+      e.target.value
+    )
+  }
+
+  className="
+    w-full
+    border
+    rounded-xl
+    px-4
+    py-3
+    mb-5
+  "
+
+/>
           <div className="bg-white rounded-2xl">
 
-{profile.companies
+{filteredCompanies
   .slice(
     0,
     showAllCompanies
-      ? profile.companies.length
+      ? filteredCompanies.length
       : 10
   )
   .map((company) => (
@@ -549,7 +667,7 @@ setMyTickets(
   </div>
 
 ))}
-{profile.companies.length > 10 && (
+{filteredCompanies.length > 10 && (
 
   <div className="mt-4 text-center">
 
@@ -575,7 +693,7 @@ setMyTickets(
 
       {showAllCompanies
         ? "Ver menos"
-        : `Ver más (${profile.companies.length - 10})`
+        : `Ver más (${filteredCompanies.length - 10})`
       }
 
     </button>
@@ -594,7 +712,73 @@ setMyTickets(
 
   </h2>
 
-  {myTickets.length === 0 ? (
+<div className="flex flex-col md:flex-row gap-3 mb-5">
+
+  <input
+
+    type="text"
+
+    placeholder="Buscar ticket, empresa o número..."
+
+    value={ticketSearch}
+
+    onChange={(e) =>
+      setTicketSearch(
+        e.target.value
+      )
+    }
+
+    className="
+      flex-1
+      border
+      rounded-xl
+      px-4
+      py-3
+    "
+
+  />
+
+  <select
+
+    value={ticketFilter}
+
+    onChange={(e) =>
+      setTicketFilter(
+        e.target.value
+      )
+    }
+
+    className="
+      border
+      rounded-xl
+      px-4
+      py-3
+      md:w-56
+    "
+
+  >
+
+    <option value="ALL">
+      Todos
+    </option>
+
+    <option value="OPEN">
+      Abiertos
+    </option>
+
+    <option value="IN_PROGRESS">
+      En progreso
+    </option>
+
+    <option value="CLOSED">
+      Cerrados
+    </option>
+
+  </select>
+
+</div>
+
+  {filteredByStatus.length === 0 ? (
 
     <p className="text-sm text-gray-500">
 
@@ -606,14 +790,7 @@ setMyTickets(
 
     <div className="bg-white rounded-xl space-y-3">
 
-      {myTickets
-  .slice(
-    0,
-    showAllTickets
-      ? myTickets.length
-      : 10
-  )
-  .map((ticket) => (
+      {displayedTickets.map((ticket) => (
 
         <div
 
@@ -664,11 +841,10 @@ setMyTickets(
             {ticket.company_name}
 
           </div>
-          <div className="text-sm font-bold text-gray-800 mt-2">
-            <span>
+
+          <div className="text-sm font-semibold mt-2">
               Prioridad: {priorityLabels[ticket.priority]}
-            </span>
-        </div>
+          </div>
 
           <div className="text-sm mt-2">
                 Estado:       
@@ -684,10 +860,19 @@ setMyTickets(
             > 
             {statusLabels[ticket.status]}
             </span>
+            
+            <div className="text-sm mt-2">
+            <span>
+              Fecha de creación: {
+                new Date(ticket.created_at)
+                .toLocaleString("es-AR", { hour12: false })
+              }
+            </span>
+          </div>
         </div>
     </div>
     ))}
-{myTickets.length > 10 && (
+{filteredByStatus.length > 10 && (
 
   <div className="mt-4 text-center">
 
@@ -713,7 +898,7 @@ setMyTickets(
 
       {showAllTickets
         ? "Ver menos"
-        : `Ver más (${myTickets.length - 10})`
+        : `Ver más (${filteredByStatus.length - 10})`
       }
 
     </button>
