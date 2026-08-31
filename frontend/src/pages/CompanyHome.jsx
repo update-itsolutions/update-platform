@@ -15,7 +15,6 @@ function CompanyHome() {
 const [data, setData] = useState(null)
 const [search, setSearch] = useState("")
 
-
 const toggleUserStatus = async (userId) => {
 
   try {

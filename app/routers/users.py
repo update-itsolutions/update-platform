@@ -7,6 +7,7 @@ from app.database import SessionLocal
 
 from app.models.user import User
 from app.models.company import Company
+from app.models.support_company_assignment import SupportCompanyAssignment
 
 from app.schemas.user import (
     PasswordUpdate,
@@ -488,6 +489,61 @@ def get_my_company(
 
     }
 
+@router.get("/company/support-contact")
+def get_support_contact(
+
+    db: Session = Depends(get_db),
+
+    current_user = Depends(company_required)
+
+):
+
+    assignment = db.query(
+        SupportCompanyAssignment
+    ).filter(
+
+        SupportCompanyAssignment.company_id
+        == current_user.company_id
+
+    ).first()
+
+    if not assignment:
+
+        return {
+
+            "assigned": False
+
+        }
+
+    support_user = db.query(
+        User
+    ).filter(
+
+        User.id == assignment.user_id
+
+    ).first()
+
+    if not support_user:
+
+        return {
+
+            "assigned": False
+
+        }
+
+    return {
+
+        "assigned": True,
+
+        "id": support_user.id,
+
+        "full_name": support_user.full_name,
+
+        "email": support_user.email,
+
+        "phone": support_user.phone
+
+    }
 
 # CREATE SYSADMIN
 @router.post("/create-sysadmin")
