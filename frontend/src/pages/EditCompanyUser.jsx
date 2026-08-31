@@ -10,6 +10,7 @@ function EditCompanyUser() {
   const [firstName, setFirstName] = useState("")
   const [lastName, setLastName] = useState("")
   const [email, setEmail] = useState("")
+  const [phone, setPhone] = useState("")
   const [role, setRole] = useState("viewer")
 
   useEffect(() => {
@@ -39,6 +40,7 @@ function EditCompanyUser() {
       setFirstName(response.data.first_name)
       setLastName(response.data.last_name)
       setEmail(response.data.email)
+      setPhone(response.data.phone)
       setRole(response.data.role)
 
     }
@@ -65,6 +67,7 @@ function EditCompanyUser() {
           first_name: firstName,
           last_name: lastName,
           email,
+          phone,
           role
         },
 
@@ -156,7 +159,7 @@ function EditCompanyUser() {
 
             </div>
 
-            <div className="md:col-span-2">
+            <div>
 
               <label className="text-sm text-gray-500 mb-2 block">
                 Email
@@ -172,7 +175,23 @@ function EditCompanyUser() {
               />
 
             </div>
+            <div>
 
+              <label className="text-sm text-gray-500 mb-2 block">
+                Teléfono
+              </label>
+
+              <input
+                type="number"
+                value={phone}
+                onChange={(e) =>
+                  setPhone(e.target.value)
+                }
+                className="border border-gray-300 rounded-xl px-4 py-3 w-full"
+              />
+
+            </div>
+            
             <div>
 
               <label className="text-sm text-gray-500 mb-2 block">

@@ -30,6 +30,8 @@ function PlatformUserDetail() {
 
     role: "",
 
+    phone: "",
+
     password: ""
 
   })
@@ -70,6 +72,9 @@ function PlatformUserDetail() {
 
         email:
             userResponse.data.email || "",
+
+        phone:
+            userResponse.data.phone || "",
 
         role:
             userResponse.data.role || "",
@@ -447,6 +452,40 @@ const toggleStatus = async () => {
           setUserForm({
             ...userForm,
             email:
+              e.target.value
+          })
+        }
+
+        className="
+          w-full
+          border
+          rounded-xl
+          p-3
+          mt-1
+        "
+
+      />
+
+    </div>
+
+        <div>
+
+      <label className="text-sm text-gray-500">
+
+        Teléfono
+
+      </label>
+
+      <input
+
+        type="number"
+
+        value={userForm.phone}
+
+        onChange={(e) =>
+          setUserForm({
+            ...userForm,
+            phone:
               e.target.value
           })
         }
